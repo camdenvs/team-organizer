@@ -1,19 +1,21 @@
+const Intern = require('../lib/Intern')
+
 describe('Intern subclass', () => {
     it('Takes an extra parameter for school', () => {
         const intern = new Intern('Stanley', '4', '5tan@fakemail.com', 'UofA')
 
-        expect(intern.school).toEqual('UofA')
+        expect(intern.school).toBe('UofA')
     })
 
     it("returns the employee's school", () => {
         const intern = new Intern('Stanley', '4', '5tan@fakemail.com', 'UofA')
 
-        expect(intern.getSchool().toEqual('UofA'))
+        expect(intern.getSchool()).toBe('UofA')
     })
 
     it('return "Engineer" as the role', () => {
         const intern = new Intern('Stanley', '4', '5tan@fakemail.com', 'UofA')
         
-        expect(intern.getRole().toEqual('Intern'))
+        expect(intern.getRole()).toBe('Intern')
     })
 })
