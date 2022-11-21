@@ -1,8 +1,11 @@
 const inquirer = require('inquirer')
+const fs = require('fs')
 const Engineer = require('./lib/Engineer')
 const Intern = require('./lib/Intern')
 const Manager = require('./lib/Manager')
+const generateHTML = require('./src/generateHTML')
 
+const allEmployees = []
 const managers = []
 const engineers = []
 const interns = []
@@ -65,6 +68,15 @@ init = () => {
                     ]).then((response) => {
                         if (response.addMore == 'Yes') {
                             init()
+                        } else {
+                            allEmployees.push(...managers, ...engineers, ...interns)
+                            fs.writeFile('./dist/my-team.html', generateHTML(allEmployees), (err) => {
+                                if (err)
+                                    console.log(err);
+                                else {
+                                    console.log(`\x1b[36mHTML file created!\x1b[0m`)
+                                }}) 
+                            
                         }
                     })
                     })

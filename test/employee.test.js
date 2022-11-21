@@ -23,13 +23,13 @@ describe('Employee class', () => {
     it("returns the employee's id number", () => {
         const employee1 = new Employee('frank', '1', 'fr4nk@fakemail.com')
 
-        expect(employee1.getId()).toBe('1')
+        expect(employee1.getId()).toBe(`ID: 1`)
     })
 
     it("returns the employee's email", () => {
         const employee1 = new Employee('frank', '1', 'fr4nk@fakemail.com')
 
-        expect(employee1.getEmail()).toBe('fr4nk@fakemail.com')
+        expect(employee1.getEmail()).toBe(`Email: fr4nk@fakemail.com`)
     })
 
     it("returns 'Employee' as the role", () => {
