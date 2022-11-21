@@ -10,8 +10,8 @@ View this video to see how to run this application:
 To use this application, run the file in the command line. You will be prompted with several questions about your team. First, select what type of employees your team members are, from Managers, Engineers, and Interns. After that is chosen, you will then be asked for addition info on tha team member, such as name, ID, and email. After all information has been filled out, you will be asked if you would like to finish making your team or add more members. Selecting yes will cycle through the questions again for a new employee. Selecting no will generate an HTML file with info cards for every team member.
 
 ## Credits
-Inquirer: https://www.npmjs.com/package/inquirer/v/8.2.4
-Jest: https://jestjs.io/
+- Inquirer: https://www.npmjs.com/package/inquirer/v/8.2.4
+- Jest: https://jestjs.io/
 
 ## License
 MIT License
