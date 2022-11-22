@@ -11,22 +11,80 @@ const engineers = []
 const interns = []
 
 init = () => {
+    inquirer
+        .prompt([
+            {
+                type: 'input',
+                message: 'Manager Name: ',
+                name: 'managerName'
+            },
+            {
+                type: 'input',
+                message: "Manager Id: ",
+                name: 'managerId'
+            },
+            {
+                type: 'input',
+                message: "Manager Email: ",
+                name: 'managerEmail'
+            },
+            {
+                type: 'input',
+                message: 'Office Number: ',
+                name: 'officeNumber'
+            }
+        ]).then((response) => {
+            managers.push(new Manager(response.managerName, response.managerId, response.managerEmail, response.officeNumber))
+            console.log(`\x1b[36m${response.managerName} has been added as manager!\x1b[0m`)
+            inquirer
+                .prompt([
+                    {
+                        type: 'list',
+                        message: 'Would you like to add more team members or finish building your team now?',
+                        choices: ['Add more', 'Finish making my team'],
+                        name: 'continue'
+                    }
+                ]).then((response) => {
+                    if (response.continue == 'Add more') {
+                        newEmployee()
+                    } else {
+                        allEmployees.push(...managers, ...engineers, ...interns)
+                        fs.writeFile('./dist/my-team.html', generateHTML(allEmployees), (err) => {
+                            if (err)
+                                console.log(err);
+                            else {
+                                console.log(`\x1b[36mHTML file created!\x1b[0m`)
+                            }
+                        })
+                    }
+                })
+        })
+}
+
+createEmployee = (x) => {
+    if (x.type == 'Engineer') {
+        engineers.push(new Engineer(x.name, x.id, x.email, x.arg))
+    } else {
+        interns.push(new Intern(x.name, x.id, x.email, x.arg))
+    }
+}
+
+newEmployee = () => {
     let employee = {}
     inquirer
         .prompt([
             {
                 type: 'list',
                 message: "What kind of employee do you need a card for?",
-                choices: ["Manager", "Engineer", "Intern"],
+                choices: ["Engineer", "Intern"],
                 name: 'employeeType'
             }]).then((response) => {
-                employee.type = response.employeeType
-                if (response.employeeType == 'Manager') {
-                    var question = 'Office Number: '
-                } else if (response.employeeType == 'Engineer') {
+                if (response.employeeType == 'Engineer') {
                     var question = 'Github Username: '
+                    employee.type = 'Engineer'
                 } else {
                     var question = "School: "
+                    employee.type = 'Intern'
                 }
                 inquirer
                     .prompt([{
@@ -59,38 +117,29 @@ init = () => {
                         console.log(`\x1b[36m${text}\x1b[0m`)
                     }).then(() => {
                         inquirer
-                            .prompt([{
-                                type: 'list',
-                                message: 'Would you like to add another team member?',
-                                choices: ['Yes', 'No'],
-                                name: 'addMore'
-                            }
-                    ]).then((response) => {
-                        if (response.addMore == 'Yes') {
-                            init()
-                        } else {
-                            allEmployees.push(...managers, ...engineers, ...interns)
-                            fs.writeFile('./dist/my-team.html', generateHTML(allEmployees), (err) => {
-                                if (err)
-                                    console.log(err);
-                                else {
-                                    console.log(`\x1b[36mHTML file created!\x1b[0m`)
-                                }}) 
-                            
-                        }
-                    })
+                            .prompt([
+                                {
+                                    type: 'list',
+                                    message: 'Would you like to add more team members or finish building your team now?',
+                                    choices: ['Add more', 'Finish making my team'],
+                                    name: 'continue'
+                                }
+                            ]).then((response) => {
+                                if (response.continue == 'Add more') {
+                                    newEmployee()
+                                } else {
+                                    allEmployees.push(...managers, ...engineers, ...interns)
+                                    fs.writeFile('./dist/my-team.html', generateHTML(allEmployees), (err) => {
+                                        if (err)
+                                            console.log(err);
+                                        else {
+                                            console.log(`\x1b[36mHTML file created!\x1b[0m`)
+                                        }
+                                    })
+                                }
+                            })
                     })
             })
-}
-
-createEmployee = (x) => {
-    if (x.type == 'Manager') {
-        managers.push(new Manager(x.name, x.id, x.email, x.arg))
-    } else if (x.type == 'Engineer') {
-        engineers.push(new Engineer(x.name, x.id, x.email, x.arg))
-    } else {
-        interns.push(new Intern(x.name, x.id, x.email, x.arg))
-    }
 }
 
 init()
