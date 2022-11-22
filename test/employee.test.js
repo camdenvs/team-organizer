@@ -29,7 +29,7 @@ describe('Employee class', () => {
     it("returns the employee's email", () => {
         const employee1 = new Employee('frank', '1', 'fr4nk@fakemail.com')
 
-        expect(employee1.getEmail()).toBe(`Email: fr4nk@fakemail.com`)
+        expect(employee1.getEmail()).toBe('Email: <a href="mailto: fr4nk@fakemail.com">fr4nk@fakemail.com</a>')
     })
 
     it("returns 'Employee' as the role", () => {
