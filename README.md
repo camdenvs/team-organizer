@@ -4,7 +4,7 @@
 The goal of this project was to create an application that allows a development team manager to easily create a page with each team member's information. This was accomplished with the inquirer npm for user prompts and the jest npm for testing. While developing this application, I was able to strengthen my knowledge of classes and how to apply them effectively in my ow projects.
 
 ## Installation
-View this video to see how to run this application: 
+View this video to see how to run this application: https://youtu.be/mETyhfEZfmk
 
 ## Usage
 To use this application, run the file in the command line. You will be prompted with several questions about your team. First, select what type of employees your team members are, from Managers, Engineers, and Interns. After that is chosen, you will then be asked for addition info on tha team member, such as name, ID, and email. After all information has been filled out, you will be asked if you would like to finish making your team or add more members. Selecting yes will cycle through the questions again for a new employee. Selecting no will generate an HTML file with info cards for every team member.
